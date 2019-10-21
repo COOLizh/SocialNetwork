@@ -3,9 +3,9 @@ using System.Text.Encodings.Web;
 
 namespace SocialNetwork.Controllers
 {
-    public class HomeController : Controller
+    public class RegistrationController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Registration()
         {
             return View();
         }

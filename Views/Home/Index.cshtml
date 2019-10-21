@@ -1,7 +1,7 @@
-@{
-    ViewData["Title"] = "Index";
-}
- 
-<h2>Index</h2>
- 
-<p>Hello World from View Template!</p>
+<title>Добро пожаловать</title>
+<h1>Добро пожаловать!</h1>
+Добро пожаловать в "одноклассники"! Войдите в свой аккаунт или зарагестрируйте новый!
+
+<form action='@this.Url.Action("Registration", "Registration")'>
+  <button> Зарегистрироваться </button>
+</form>
