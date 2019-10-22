@@ -12,9 +12,11 @@ namespace SocialNetwork.Controllers
         }
 
         [HttpPost]
-        public string Registration(string name, string surname, bool maleGender, string email, string password, string passwordConfirmation){
-            string res = $"{name} - {surname} - {maleGender} - {email} - {password} - {passwordConfirmation}";
-            return res;
+        public string Registration(string name, string surname, bool maleGender, string email, string password, string passwordConfirmation, string country){
+                
+            
+
+            return "Вы успешно зарегистрировались, можете войти в свой аккаунт с главной страницы!";
         }
     }
 }
