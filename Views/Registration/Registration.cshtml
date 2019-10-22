@@ -1,3 +1,50 @@
-<title>Регистрация</title>
-<h1>Регистрация</h1>
-Регистрируйся
+@using(Html.BeginForm())
+{
+  <title>Регистрация</title>
+  <div class="form-wrap">
+    <div class="profile"><img src="https://html5book.ru/wp-content/uploads/2016/10/profile-image.png">
+      <h1>Регистрация</h1>
+    </div>
+    <form>
+      <div>
+        <label for="name">Имя</label>
+        <input type="text" name="name" required>
+        <label for="name">Фамилия</label>
+        <input type="text" name="surname" required>
+      </div>
+      <span>Пол</span>
+      <div class="radio" required>
+        <label>
+          <input type="radio" name="maleGender" value="мужской" checked>мужской
+          <div class="radio-control male"></div>
+        </label>
+        <label>
+          <input type="radio" name="femaleGender" value="женский">женский
+          <div class="radio-control female"></div>
+        </label>
+      </div>
+      <div>
+        <label for="email">E-mail</label>
+        <input type="email" name="email" required>
+      </div>
+      <div>
+        <label for="country">Страна</label>
+        <select name="country" required>
+          <option>Выберите страну проживания</option>
+          <option value="Россия">Россия</option> 
+          <option value="Украина">Украина</option> 
+          <option value="Беларусь">Беларусь</option> 
+        </select> 
+      </div>
+
+      <p><strong>Пароль:</strong> 
+      <input type="password" maxlength="25" size="40" name="password" required></p>
+
+      <p><strong>Повторите пароль:</strong> 
+      <input type="password" maxlength="25" size="40" name="passwordConfirmation" required></p>
+
+      <button type="submit" method="registrate">Зарегистрироваться</button> 
+    </form> 
+  </div>
+}
+
