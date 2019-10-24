@@ -1,14 +1,14 @@
 using Microsoft.EntityFrameworkCore;
+using MySql.Data.EntityFrameworkCore.Extensions;
 
 namespace SocialNetwork.Models
 {
     public class UsersContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-        public UsersContext(DbContextOptions<UsersContext> options)
-            : base(options)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            Database.EnsureCreated();
+            optionsBuilder.UseMySQL("server=localhost;UserId=root;Password=24052000;database=social_network;");
         }
     }
 }
