@@ -8,37 +8,32 @@ namespace SocialNetwork.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        [Display(Name = "Name")]
         [Column(TypeName = "varchar(30)")]
-        protected string Name{ get; set;}
+        public string Name{ get; set;}
 
         [Required]
-        [Display(Name = "Surname")]
         [Column(TypeName = "varchar(30)")]
-        protected string Surname{ get; set;}
-        protected bool Gender{ get; set;}
+        public string Surname{ get; set;}
+        //protected bool Gender{ get; set;}
 
         [Required]
-        [Display(Name = "Country")]
         [Column(TypeName = "varchar(30)")]
-        protected string Country{ get; set;}
+        public string Country{ get; set;}
 
         [Required]
-        [Display(Name = "Email")]
         [Column(TypeName = "varchar(100)")]
-        protected string Email{ get; set;}
+        public string Email{ get; set;}
 
         [Required]
-        [Display(Name = "Password")]
         [Column(TypeName = "varchar(100)")]
-        protected string Password{ get; set;}
+        public string Password{ get; set;}
 
         public User(){}
         public void Construct(int id, string name, string surname, bool maleGender, string email, string password, string country){
             Id = id;
             Name = name;
             Surname = surname;
-            Gender = (maleGender) ? true : false;
+            //Gender = (maleGender) ? true : false;
             Email = email;
             Password = password;
             Country = country;
