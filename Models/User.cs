@@ -19,7 +19,7 @@ namespace SocialNetwork.Models
         public string Surname{ get; set;}
 
         [Required]
-        [Column(TypeName = "varchar(4)")]
+        [Column(TypeName = "varchar(6)")]
         public string Gender{ get; set;}
 
         [Required]

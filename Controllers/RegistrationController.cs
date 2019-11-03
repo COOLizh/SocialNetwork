@@ -47,6 +47,12 @@ namespace SocialNetwork.Controllers
             {
                 db.Database.EnsureCreated();    
                 User user = new User();
+
+                if ((object)Request.Form["gender"] != null)
+                {
+                    gender = Request.Form["gender"].ToString();
+                }
+
                 user.Construct(name, surname, gender, email, hash, country);
                 db.Users.Add(user);
                 db.SaveChanges();
