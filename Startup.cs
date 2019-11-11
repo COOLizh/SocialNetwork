@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Models;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace SocialNetwork
 {
@@ -25,6 +26,7 @@ namespace SocialNetwork
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseStaticFiles();
             loggerFactory.AddConsole();
 
             if (env.IsDevelopment())
@@ -39,7 +41,7 @@ namespace SocialNetwork
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}"); 
 
-                    routes.MapRoute("Registration", "Registration/Registration", new { controller = "Registration", action = "Registration" });
+                routes.MapRoute("Registration", "Registration/Registration", new { controller = "Registration", action = "Registration" });
             });
         }
     }
