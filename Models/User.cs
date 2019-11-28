@@ -5,62 +5,50 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SocialNetwork.Models
 {
-    public class User
+    public class User : IdentityUser
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        
         [Key, Column(Order = 0)]
-        public int Id { get; set; }
+        override public string Id { get; set; }
 
         [Required]
         [Column(TypeName = "varchar(30)")]
         [Display(Name = "Name")]
-        public string Name{ get; set;}
+        public string Name { get; set; }
 
         [Required]
         [Column(TypeName = "varchar(30)")]
         [Display(Name = "Surname")]
-        public string Surname{ get; set;}
+        public string Surname { get; set; }
 
         [Required]
         [Display(Name = "Gender")]
         [Column(TypeName = "varchar(6)")]
-        public string Gender{ get; set;}
+        public string Gender { get; set; }
 
         [Required]
         [Display(Name = "Country")]
         [Column(TypeName = "varchar(30)")]
-        public string Country{ get; set;}
+        public string Country { get; set; }
 
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         [Column(TypeName = "varchar(30)")]
-        public string Email{ get; set;}
+        override public string Email { get; set; }
 
         [Required]
         [Column(TypeName = "varchar(32)")]
         [StringLength(100, ErrorMessage = "Пароль должен содержать как минимум 6 символов", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
-        public string Password{ get; set;}
+        public string Password { get; set; }
 
         [Required]
         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         public string ConfirmPassword { get; set; }
-
-/*
-        public User(){}
-        public void Construct(string name, string surname, string gender, string email, string password, string country, string confirmPassword){
-            Name = name;
-            Surname = surname;
-            Gender = gender;
-            Email = email;
-            Password = password;
-            Country = country;
-            ConfirmPassword = confirmPassword;
-        }
-        */
     }
 }

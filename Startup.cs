@@ -10,16 +10,41 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Models;
-using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.AspNetCore.Identity;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace SocialNetwork
 {
     public class Startup
     {
+        public Startup(IHostingEnvironment env)
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+            Configuration = builder.Build();
+        }
+ 
+        public IConfiguration Configuration { get; }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //var connectionString = "server=localhost;Uid=root;Pwd=24052000;Database=social_network;TreatTinyAsBoolean=true;";
+            //System.Console.WriteLine(connectionString);
+            
+            services.AddDbContextPool<UsersContext>(options =>
+                options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddIdentity<User, IdentityRole>(settings => {
+				settings.Password.RequiredLength         = 4;
+				settings.Password.RequireDigit           = false;
+				settings.Password.RequireLowercase       = false;
+				settings.Password.RequireUppercase       = false;
+				settings.Password.RequireNonAlphanumeric = false;
+			}).AddEntityFrameworkStores<UsersContext>();
+
             services.AddMvc();
         }
 
