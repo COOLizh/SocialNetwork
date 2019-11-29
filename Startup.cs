@@ -35,10 +35,9 @@ namespace SocialNetwork
             //var connectionString = "server=localhost;Uid=root;Pwd=24052000;Database=social_network;TreatTinyAsBoolean=true;";
             //System.Console.WriteLine(connectionString);
             
-            services.AddDbContextPool<UsersContext>(options =>
+            services.AddDbContext<UsersContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<User, IdentityRole>(settings => {
-				settings.Password.RequiredLength         = 4;
 				settings.Password.RequireDigit           = false;
 				settings.Password.RequireLowercase       = false;
 				settings.Password.RequireUppercase       = false;

@@ -9,7 +9,7 @@ namespace SocialNetwork.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         
-        [Key, Column(Order = 0)]
+        [Key]
         override public string Id { get; set; }
 
         [Required]
@@ -45,13 +45,13 @@ namespace SocialNetwork.Models
 
         [Required]
         [Column(TypeName = "varchar(32)")]
-        [StringLength(100, ErrorMessage = "Пароль должен содержать как минимум 6 символов", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Password must be at least 6 characters", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [Required]
-        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
+        [Compare("Password", ErrorMessage = "Passwords do not match.")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         public string ConfirmPassword { get; set; }
