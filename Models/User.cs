@@ -33,6 +33,11 @@ namespace SocialNetwork.Models
         public string Country { get; set; }
 
         [Required]
+        [Display(Name = "BirthDay")]
+        [Column(TypeName = "varchar(10)")]
+        public string BirthDay {get; set;}
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         [Column(TypeName = "varchar(30)")]

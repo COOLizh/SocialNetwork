@@ -38,11 +38,23 @@ namespace SocialNetwork.Controllers
         }
 
         [HttpPost]
-        public string Registration(string name, string surname, string email, string password)
+        public string Registration(RegisterViewModel model)
         {
             db.Database.EnsureCreated();
-            User user = new User{Name = "YA", Surname = "YA", Email = "Kek@mail.ru", Password = "aaa", ConfirmPassword = "aaa", Country = "ZHOPA", Gender = "MALE"};
-            db.SUsers.Add(user);
+            User usr = new User{
+                Name = model.Name, 
+                Surname = model.Surname, 
+                Gender = "Male", 
+                Country = "Russia", 
+                BirthDay = model.BirthDay, 
+                Email = model.Email, 
+                Password = model.Password, 
+                ConfirmPassword = model.ConfirmPassword
+                };
+            usr.Gender = "Male";
+            usr.Country = "Russia";
+            usr.BirthDay = "24-05-2000";
+            db.SUsers.Add(usr);
             db.SaveChanges();
             return "Success";
         }

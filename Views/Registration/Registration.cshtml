@@ -1,10 +1,12 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model SocialNetwork.ViewModels.RegisterViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign Up Form by Colorlib</title>
+    <title>Sign Up</title>
 
     <!-- Font Icon -->
     <link rel="stylesheet" href="~/registration/fonts/material-icon/css/material-design-iconic-font.min.css">
@@ -14,28 +16,29 @@
     <link rel="stylesheet" href="~/registration/css/style.css">
 </head>
 <body>
-
+    
     <div class="main">
 
         <section class="signup">
             <img src="images/signup-bg.jpg" alt="">
             <div class="container">
                 <div class="signup-content">
-                    <form method="POST" id="signup-form" class="signup-form">
+                    @using(Html.BeginForm("Registration", "Registration", FormMethod.Post))
+                    {
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="first_name">First name</label>
-                                <input type="text" class="form-input" name="first_name" id="first_name"/>
+                                <input asp-for="Name" type="text" class="form-input"/>
                             </div>
                             <div class="form-group">
                                 <label for="last_name">Last name</label>
-                                <input type="text" class="form-input" name="last_name" id="last_name"/>
+                                <input asp-for="Surname" type="text" class="form-input"/>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group form-icon">
                                 <label for="birth_date">Birth date</label>
-                                <input type="text" class="form-input" name="birth_date" id="birth_date" placeholder="MM-DD-YYYY" />
+                                <input asp-for="BirthDay" type="text" class="form-input" placeholder="MM-DD-YYYY"/>
                             </div>
                             <div class="form-radio">
                                 <label for="gender">Gender</label>
@@ -51,53 +54,33 @@
                         <div class="form-group">
                             <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input type="email" class="form-input" name="email" id="email"/>
+                                    <input asp-for="Email" type="email" class="form-input"/>
                                 </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-input" name="password" id="password"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="re_password">Repeat your password</label>
-                                <input type="password" class="form-input" name="re_password" id="re_password"/>
-                            </div>
-                        </div>
-                        <div class="form-text">
-                            <a href="#" class="add-info-link"><i class="zmdi zmdi-chevron-right"></i>Additional info</a>
-                            <div class="add_info">
-                                <div class="form-group">
-                                    <label for="phone_number">Phone number</label>
-                                    <input type="number" class="form-input" name="phone_number" id="phone_number" />
-                                </div>
-
-                                <div class="form-group">
+                        <div class="form-group">
                                     <label for="country">Country</label>
                                     <div class="select-list">
                                         <select name="country" id="country" required>
-                                            <option value="US">United State</option>
-                                            <option value="UK">English</option>
-                                            <option value="VN">Viet Nam</option>
+                                            <option value="RU">Russia</option>
+                                            <option value="BY">Belarus</option>
+                                            <option value="UA">Ukraine</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="city">City</label>
-                                    <div class="select-list">
-                                        <select name="city" id="city" required>
-                                            <option value="NY">NewYork</option>
-                                            <option value="IC">IceLand</option>
-                                            <option value="canada">Canada</option>
-                                        </select>
-                                    </div>
-                                </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input asp-for="Password" type="password" class="form-input"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="re_password">Repeat your password</label>
+                                <input asp-for="ConfirmPassword" type="password" class="form-input"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <input type="submit" name="submit" id="submit" class="form-submit" value="Submit"/>
                         </div>
-                    </form>
+                    }
                 </div>
             </div>
         </section>
