@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using SocialNetwork.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
+using SocialNetwork.Services;
 
 namespace SocialNetwork.Controllers
 {
@@ -47,7 +48,17 @@ namespace SocialNetwork.Controllers
                 var result = await _userManager.CreateAsync(usr, model.Password);
                 Console.WriteLine(result);
                 if(result.Succeeded){
-                    return RedirectToAction("Index", "Home");
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(usr);
+                    var callbackUrl = Url.Action(
+                        "ConfirmEmail",
+                        "Account",
+                        new { userId = usr.Id, code = code },
+                        protocol: HttpContext.Request.Scheme);
+                    EmailService emailService = new EmailService();
+                    await emailService.SendEmailAsync(model.Email, "Confirm your account",
+                        $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
+ 
+                    return Content("Для завершения регистрации проверьте электронную почту и перейдите по ссылке, указанной в письме");
                 }
                 else
                 {

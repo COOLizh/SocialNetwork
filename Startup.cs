@@ -42,7 +42,8 @@ namespace SocialNetwork
 				settings.Password.RequireLowercase       = false;
 				settings.Password.RequireUppercase       = false;
 				settings.Password.RequireNonAlphanumeric = false;
-			}).AddEntityFrameworkStores<UsersContext>();
+			}).AddEntityFrameworkStores<UsersContext>()
+            .AddDefaultTokenProviders();
 
             services.AddMvc();
         }
