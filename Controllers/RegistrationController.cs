@@ -9,6 +9,7 @@ using SocialNetwork.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using SocialNetwork.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SocialNetwork.Controllers
 {
@@ -27,6 +28,27 @@ namespace SocialNetwork.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                return View("Error");
+            }
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return View("Error");
+            }
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+            if(result.Succeeded)
+                return RedirectToAction("Index", "Home");
+            else
+                return View("Error");
+        }
+ 
 
         [HttpPost]
         public async Task<IActionResult> Registration(RegisterViewModel model)
@@ -51,7 +73,7 @@ namespace SocialNetwork.Controllers
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(usr);
                     var callbackUrl = Url.Action(
                         "ConfirmEmail",
-                        "Account",
+                        "Registration",
                         new { userId = usr.Id, code = code },
                         protocol: HttpContext.Request.Scheme);
                     EmailService emailService = new EmailService();
