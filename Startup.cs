@@ -64,7 +64,7 @@ namespace SocialNetwork
             {   
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}"); 
+                    template: "{controller=Home}/{action=Index}"); 
 
                 routes.MapRoute("Registration", "Registration/Registration", new { controller = "Registration", action = "Registration" });
             });

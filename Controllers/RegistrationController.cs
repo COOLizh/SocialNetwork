@@ -30,6 +30,34 @@ namespace SocialNetwork.Controllers
         }
 
         [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost] 
+        public async Task<IActionResult> Login(LoginViewModel model) { 
+        if (ModelState.IsValid) { 
+            var result = await _signInManager.PasswordSignInAsync(model.Email,
+                model.Password, true, false); 
+            if (result.Succeeded) { 
+                var usr = await _userManager.FindByEmailAsync(model.Email);
+                if(await _userManager.IsEmailConfirmedAsync(usr))
+                {
+                    return RedirectToAction("Profile", "Profile"); 
+                }
+                else
+                {
+                    TempData["ErrorMessage"]="Email is not confirmed.";
+                    return RedirectToAction("Index", "Home");
+                }
+            } 
+        } 
+        TempData["ErrorMessage"]="Incorrect username and / or password";
+        return RedirectToAction("Index", "Home");
+    }
+
+        [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
         {
@@ -78,9 +106,9 @@ namespace SocialNetwork.Controllers
                         protocol: HttpContext.Request.Scheme);
                     EmailService emailService = new EmailService();
                     await emailService.SendEmailAsync(model.Email, "Confirm your account",
-                        $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
+                        $"Confirm registration by clicking on the link: <a href='{callbackUrl}'>link</a>");
  
-                    return Content("Для завершения регистрации проверьте электронную почту и перейдите по ссылке, указанной в письме");
+                    return Content("To complete the registration, check your email and follow the link provided in the letter");
                 }
                 else
                 {
