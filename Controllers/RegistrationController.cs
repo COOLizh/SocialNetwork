@@ -44,7 +44,7 @@ namespace SocialNetwork.Controllers
                 var usr = await _userManager.FindByEmailAsync(model.Email);
                 if(await _userManager.IsEmailConfirmedAsync(usr))
                 {
-                    return RedirectToAction("Profile", "Profile"); 
+                    return RedirectToAction("Profile", "Account"); 
                 }
                 else
                 {
