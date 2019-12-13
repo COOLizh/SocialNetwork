@@ -44,6 +44,11 @@ namespace SocialNetwork.Controllers
                 var usr = await _userManager.FindByEmailAsync(model.Email);
                 if(await _userManager.IsEmailConfirmedAsync(usr))
                 {
+                    TempData["UserName"] = usr.Name;
+                    TempData["UserSurname"] = usr.Surname;
+                    TempData["UserGender"] = usr.Gender;
+                    TempData["UserBirthday"] = usr.BirthDay;
+                    TempData["UserCountry"] = usr.Country;
                     return RedirectToAction("Profile", "Account"); 
                 }
                 else
