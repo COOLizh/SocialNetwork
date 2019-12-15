@@ -10,6 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using SocialNetwork.Services;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace SocialNetwork.Controllers
 {
@@ -30,9 +33,23 @@ namespace SocialNetwork.Controllers
             return View(user);
         }
         [HttpGet]
-        public IActionResult Friends()
+        public IActionResult Friends(string name)
         {
-            return View();
+            IQueryable<User> users = _userManager.Users;
+            if (!String.IsNullOrEmpty(name))
+            {
+                users = users.Where(p => p.Name.Contains(name));
+                users = users.Where(p => p.Surname.Contains(name));
+            }
+            else{
+                return View();
+            }
+            UsersListViewModel viewModel = new UsersListViewModel
+            {
+                Users = users.ToList(),
+                Name = name
+            };
+            return View(viewModel);
         }
     }
 }
