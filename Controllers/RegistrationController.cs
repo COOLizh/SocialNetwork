@@ -10,6 +10,10 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using SocialNetwork.Services;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace SocialNetwork.Controllers
 {
@@ -44,11 +48,14 @@ namespace SocialNetwork.Controllers
                 var usr = await _userManager.FindByEmailAsync(model.Email);
                 if(await _userManager.IsEmailConfirmedAsync(usr))
                 {
-                    TempData["UserName"] = usr.Name;
-                    TempData["UserSurname"] = usr.Surname;
-                    TempData["UserGender"] = usr.Gender;
-                    TempData["UserBirthday"] = usr.BirthDay;
-                    TempData["UserCountry"] = usr.Country;
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimsIdentity.DefaultNameClaimType, usr.Email)
+                    };
+                    // создаем объект ClaimsIdentity
+                    ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+                    // установка аутентификационных куки
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
                     return RedirectToAction("Profile", "Account"); 
                 }
                 else

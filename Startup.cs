@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using SocialNetwork.Models;
 using Microsoft.AspNetCore.Identity;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace SocialNetwork
 {
@@ -45,6 +46,12 @@ namespace SocialNetwork
 			}).AddEntityFrameworkStores<UsersContext>()
             .AddDefaultTokenProviders();
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options => //CookieAuthenticationOptions
+            {
+                options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Registration/Login");
+            });
+
             services.AddMvc();
         }
 
@@ -59,7 +66,7 @@ namespace SocialNetwork
                 app.UseDeveloperExceptionPage();
             }
 
-
+            app.UseAuthentication();    // аутентификация
             app.UseMvc(routes =>
             {   
                 routes.MapRoute(
@@ -68,6 +75,7 @@ namespace SocialNetwork
 
                 routes.MapRoute("Registration", "Registration/Registration", new { controller = "Registration", action = "Registration" });
                 routes.MapRoute("Account", "Registration/Registration", new { controller = "Account", action = "Profile" });
+                routes.MapRoute("Friends", "Registration/Registration", new { controller = "Account", action = "Friends" });
             });
         }
     }

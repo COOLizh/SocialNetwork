@@ -15,8 +15,22 @@ namespace SocialNetwork.Controllers
 {
     public class AccountController : Controller
     {
+        private UserManager<User> _userManager;
+        private SignInManager<User> _signInManager;
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
         [HttpGet]
-        public IActionResult Profile()
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+            return View(user);
+        }
+        [HttpGet]
+        public IActionResult Friends()
         {
             return View();
         }
