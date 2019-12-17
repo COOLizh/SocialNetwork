@@ -76,6 +76,7 @@ namespace SocialNetwork
                 routes.MapRoute("Registration", "Registration/Registration", new { controller = "Registration", action = "Registration" });
                 routes.MapRoute("Account", "Registration/Registration", new { controller = "Account", action = "Profile" });
                 routes.MapRoute("Friends", "Registration/Registration", new { controller = "Account", action = "Friends" });
+                routes.MapRoute("SearchFriends", "Registration/Registration/{id?}", new { controller = "Account", action = "UsersProfile" });
             });
         }
     }

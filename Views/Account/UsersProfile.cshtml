@@ -1,9 +1,9 @@
-@model SocialNetwork.ViewModels.UsersListViewModel
+@model SocialNetwork.Models.User
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Friends</title>
+<title>Profile</title>
 <link href="~/profile/styles.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="~/profile/css/prettyPhoto.css" type="text/css" media="screen" charset="utf-8" />
 <link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
@@ -29,37 +29,21 @@
 
 <!--Begin About Section-->
     <div id="about">
-    	<h1>Search friends</h1>
+    	<h1>@Model.Name @Model.Surname</h1>
+        <ul id="top-social">
+        	<li><a href="#" class="facebook">Facebook</a></li>
+            <li><a href="#" class="twitter">Twitter</a></li>
+            <li><a href="#" class="linkedin">LinkedIn</a></li>
+        </ul>
         <div class="top-divider"></div>
-        <div class="wrap">
-            @using(Html.BeginForm("Friends", "Account", FormMethod.Get)){
-            <div class="search">
-                <input name="name" type="text" class="searchTerm" placeholder="Enter the name of user">
-                <input type="submit" value="Search" class="btn btn-default" />
-            </div>
-            }
+        <div class="content">
+        	<img src="~/profile/images/designer-photo.jpg" />
+            <h2>Gender: @Model.Gender</h2>
+            <h2>Birthday: @Model.BirthDay</h2>
+            <h2>Country: @Model.Country</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam risus, dignissim pharetra sagittis sed, adipiscing nec felis. Maecenas non nulla eget ligula semper aliquet. Pellentesque adipiscing pulvinar tortor, a adipiscing felis commodo in. Vestibulum dui magna, mattis in bibendum a, congue vitae lectus. In eu odio tortor, vel congue lacus. Donec viverra viverra eros, in egestas ligula adipiscing non. Morbi et ultricies sapien. Duis metus odio, commodo in tempor quis, euismod et ligula. Vivamus tristique condimentum ipsum sit amet posuere.</p> 
         </div>
-        <table class="table table-striped">
-            <tr>
-                <big><big><th>Name</th></big></big>
-                <big><big></big><th>Surname</th></big></big>
-                <big><big></big><th>Birthday</th></big></big>
-                <big><big></big><th>Country</th></big></big>
-            </tr>
-            @if (Model != null)
-            {
-                @foreach (var item in Model.Users){
-                    <tr>
-                        <big><big><td>@item.Name</td></big></big>
-                        <big><big>><td>@item.Surname</td></big></big>
-                        <big><big><td>@item.BirthDay</td></big></big>
-                        <big><big><td>@item.Country</td></big></big>
-                        <big><big><td><a href="~/Account/UsersProfile?id=@item.Email">View profile</a><td></big></big>
-                    </tr>
-                }
-            }
-        </table>
-        <div class="bottom-divider"></div> 
+    <div class="bottom-divider"></div> 
     </div>
 <!--End About Section-->
 </div>

@@ -8,7 +8,7 @@ namespace SocialNetwork.Models
 {
     public class UsersContext : IdentityDbContext<User>
     {
-        //public DbSet<User> Users { get; set; }
+        public DbSet<FriendRequests> FriendRequests {get; set;}
         public UsersContext(DbContextOptions<UsersContext> options)
             : base(options)
         {

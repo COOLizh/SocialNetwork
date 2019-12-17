@@ -35,21 +35,27 @@ namespace SocialNetwork.Controllers
         [HttpGet]
         public IActionResult Friends(string name)
         {
-            IQueryable<User> users = _userManager.Users;
+            List<User> ans = new List<User>();
+            List<User> users = _userManager.Users.ToList();
             if (!String.IsNullOrEmpty(name))
             {
-                users = users.Where(p => p.Name.Contains(name));
-                users = users.Where(p => p.Surname.Contains(name));
+                ans = users.Where(p => p.Name.Contains(name)).ToList();
+                ans.AddRange(users.Where(p => p.Name.Contains(name)).ToList());
             }
             else{
                 return View();
             }
             UsersListViewModel viewModel = new UsersListViewModel
             {
-                Users = users.ToList(),
-                Name = name
+                Users = ans,
+                Name = name,
             };
             return View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UsersProfile(string id){
+            return View(await _userManager.FindByEmailAsync(id));
         }
     }
 }
