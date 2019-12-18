@@ -18,13 +18,16 @@ namespace SocialNetwork.Controllers
 {
     public class AccountController : Controller
     {
+        UsersContext _manager;
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, UsersContext manager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _manager = manager;
         }
+
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Profile()
@@ -32,6 +35,7 @@ namespace SocialNetwork.Controllers
             var user = await _userManager.FindByEmailAsync(User.Identity.Name);
             return View(user);
         }
+
         [HttpGet]
         public IActionResult Friends(string name)
         {
@@ -40,15 +44,15 @@ namespace SocialNetwork.Controllers
             if (!String.IsNullOrEmpty(name))
             {
                 ans = users.Where(p => p.Name.Contains(name)).ToList();
-                ans.AddRange(users.Where(p => p.Name.Contains(name)).ToList());
+                ans.AddRange(users.Where(p => p.Surname.Contains(name)).ToList());
             }
-            else{
-                return View();
-            }
+
             UsersListViewModel viewModel = new UsersListViewModel
             {
                 Users = ans,
                 Name = name,
+                FRiends = _manager.GetFriends(User.Identity.Name),
+                Requests = _manager.GetRequests(User.Identity.Name),
             };
             return View(viewModel);
         }
@@ -56,6 +60,13 @@ namespace SocialNetwork.Controllers
         [HttpGet]
         public async Task<IActionResult> UsersProfile(string id){
             return View(await _userManager.FindByEmailAsync(id));
+        }
+
+        [HttpPost]
+        public IActionResult FriendRequest(string mail){
+            _manager.SendFriendsRequest(User.Identity.Name, mail);
+            TempData["RequestMessage"]="Friend request was sent successfully";
+            return RedirectToAction("Friends", "Account");
         }
     }
 }

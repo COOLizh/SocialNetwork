@@ -62,6 +62,40 @@
         <div class="bottom-divider"></div> 
     </div>
 <!--End About Section-->
+
+
+<!--Begin Experience Section-->   
+    <div id="experience">
+        <h1>My friends</h1>
+    	@if (Model != null)
+            {
+                @foreach (var item in Model.FRiends){
+                    <tr>
+                        <big><big><td>@item.From</td></big></big>
+                        <big><big>><td>@item.To</td></big></big>
+                    </tr>
+                }
+            }
+        <div class="bottom-divider"></div>
+    </div>
+<!--End Experience Section-->
+
+    <!--Begin Experience Section-->   
+    <div id="experience">
+        <h1>Requests</h1>
+        @TempData["ErrorMessage"]
+    	@if (Model != null)
+            {
+                @foreach (var item in Model.Requests){
+                    <tr>
+                        <big><big><td>@item.From</td></big></big>
+                        <big><big>><td>@item.To</td></big></big>
+                    </tr>
+                }
+            }
+        <div class="bottom-divider"></div>
+    </div>
+<!--End Experience Section-->
 </div>
 
  <!-- The JavaScript -->  

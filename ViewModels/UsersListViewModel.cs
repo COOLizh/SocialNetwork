@@ -7,6 +7,8 @@ namespace SocialNetwork.ViewModels
     public class UsersListViewModel
     {
         public IEnumerable<User> Users { get; set; }
+        public IEnumerable<FriendRequests> FRiends { get; set; }
+        public IEnumerable<FriendRequests> Requests { get; set; }
         public string Name { get; set; }
     }
 }
