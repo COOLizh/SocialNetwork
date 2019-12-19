@@ -102,7 +102,7 @@ namespace SocialNetwork.Controllers
                     Country = "Russia", 
                     BirthDay = model.BirthDay, 
                     Email = model.Email,
-                    Photo = " ",
+                    Photo = "/photos/deafult.jpg",
                     UserName = model.Email,
                 };
                 var result = await _userManager.CreateAsync(usr, model.Password);
