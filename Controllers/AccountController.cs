@@ -65,7 +65,6 @@ namespace SocialNetwork.Controllers
         [HttpPost]
         public IActionResult FriendRequest(string mail){
             _manager.SendFriendsRequest(User.Identity.Name, mail);
-            TempData["RequestMessage"]="Friend request was sent successfully";
             return RedirectToAction("Friends", "Account");
         }
     }

@@ -41,20 +41,20 @@
         </div>
         <table class="table table-striped">
             <tr>
-                <big><big><th>Name</th></big></big>
-                <big><big></big><th>Surname</th></big></big>
-                <big><big></big><th>Birthday</th></big></big>
-                <big><big></big><th>Country</th></big></big>
+                <th><big><big>Name</big></big></th>
+                <th><big><big>Surname</big></big></th>
+                <th><big><big>Birthday</big></big></th>
+                <th><big><big>Country</big></big></th>
             </tr>
             @if (Model != null)
             {
                 @foreach (var item in Model.Users){
                     <tr>
-                        <big><big><td>@item.Name</td></big></big>
-                        <big><big>><td>@item.Surname</td></big></big>
-                        <big><big><td>@item.BirthDay</td></big></big>
-                        <big><big><td>@item.Country</td></big></big>
-                        <big><big><td><a href="~/Account/UsersProfile?id=@item.Email">View profile</a><td></big></big>
+                        <td><big><big>@item.Name</big></big></td>
+                        <td><big><big>@item.Surname</big></big></td>
+                        <td><big><big>@item.BirthDay</big></big></td>
+                        <td><big><big>@item.Country</big></big></td>
+                        <td><a href="~/Account/UsersProfile?id=@item.Email"><big><big>View profile</big></big></a><td>
                     </tr>
                 }
             }
@@ -71,8 +71,8 @@
             {
                 @foreach (var item in Model.FRiends){
                     <tr>
-                        <big><big><td>@item.From</td></big></big>
-                        <big><big>><td>@item.To</td></big></big>
+                        <td><big><big>@item.From</big></big></td>
+                        <td><big><big>@item.To</big></big></td>
                     </tr>
                 }
             }
@@ -83,16 +83,22 @@
     <!--Begin Experience Section-->   
     <div id="experience">
         <h1>Requests</h1>
-        @TempData["ErrorMessage"]
-    	@if (Model != null)
-            {
-                @foreach (var item in Model.Requests){
-                    <tr>
-                        <big><big><td>@item.From</td></big></big>
-                        <big><big>><td>@item.To</td></big></big>
-                    </tr>
+        <table class="table table-striped">
+            <tr>
+                <th><big><big>From</big></big></th>
+                <th><big><big>To</big></big></th>
+                <th><big><big>Status</big></big></th>
+            </tr>
+            @if (Model != null)
+                {
+                    @foreach (var item in Model.Requests){
+                        <tr>
+                            <td><big><big>@item.From</big></big></td>
+                            <td><big><big>@item.To</big></big></td>
+                        </tr>
+                    }
                 }
-            }
+        </table>
         <div class="bottom-divider"></div>
     </div>
 <!--End Experience Section-->
