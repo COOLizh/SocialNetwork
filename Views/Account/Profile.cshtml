@@ -37,12 +37,25 @@
         </ul>
         <div class="top-divider"></div>
         <div class="content">
-        	<img src="~/profile/images/designer-photo.jpg" />
+        	<img src="@Model.Photo" width="400" height="350"/>
             <h2>Gender: @Model.Gender</h2>
             <h2>Birthday: @Model.BirthDay</h2>
             <h2>Country: @Model.Country</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam risus, dignissim pharetra sagittis sed, adipiscing nec felis. Maecenas non nulla eget ligula semper aliquet. Pellentesque adipiscing pulvinar tortor, a adipiscing felis commodo in. Vestibulum dui magna, mattis in bibendum a, congue vitae lectus. In eu odio tortor, vel congue lacus. Donec viverra viverra eros, in egestas ligula adipiscing non. Morbi et ultricies sapien. Duis metus odio, commodo in tempor quis, euismod et ligula. Vivamus tristique condimentum ipsum sit amet posuere.</p> 
         </div>
+         <form method="post" enctype="multipart/form-data" asp-controller="Account" asp-action="AddFile" class="main">
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p>Change photo:</p>
+                    <input type="file" name="file" multiple="">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input type="submit" value="Upload">
+                </div>
+            </div>
+        </form>
     <div class="bottom-divider"></div> 
     </div>
 <!--End About Section-->

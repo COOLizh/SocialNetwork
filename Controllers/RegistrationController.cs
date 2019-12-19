@@ -102,13 +102,10 @@ namespace SocialNetwork.Controllers
                     Country = "Russia", 
                     BirthDay = model.BirthDay, 
                     Email = model.Email,
+                    Photo = " ",
                     UserName = model.Email,
-                    Password = model.Password,
-                    ConfirmPassword = model.ConfirmPassword
                 };
-                Console.WriteLine(usr);
                 var result = await _userManager.CreateAsync(usr, model.Password);
-                Console.WriteLine(result);
                 if(result.Succeeded){
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(usr);
                     var callbackUrl = Url.Action(

@@ -13,19 +13,24 @@ using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace SocialNetwork.Controllers
 {
     public class AccountController : Controller
     {
         UsersContext _manager;
+        IHostingEnvironment _appEnvironment;
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, UsersContext manager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, UsersContext manager, IHostingEnvironment appEnv)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _manager = manager;
+            _appEnvironment = appEnv;
         }
 
         [HttpGet]
@@ -80,6 +85,27 @@ namespace SocialNetwork.Controllers
                 FRiends = _manager.GetFriends(User.Identity.Name),
             };
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddFile(IFormFile file)
+        {
+            if (file != null)
+            {
+                // путь к папке Files
+                User usr = await _userManager.FindByEmailAsync(User.Identity.Name);
+                string fileName = usr.Email + "_avatar";
+                string path = "/photos/" + fileName + ".png";
+                // сохраняем файл в папку Files в каталоге wwwroot
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+                usr.Photo = path;
+                await _userManager.UpdateAsync(usr);
+            }
+ 
+            return RedirectToAction("Profile", "Account");
         }
     }
 }
