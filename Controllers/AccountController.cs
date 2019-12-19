@@ -73,5 +73,13 @@ namespace SocialNetwork.Controllers
             _manager.AcceptFriendsRequest(email, User.Identity.Name);
             return RedirectToAction("Friends", "Account");
         }
+
+        [HttpGet]
+        public IActionResult Dialogues(){
+            UsersListViewModel viewModel = new UsersListViewModel{
+                FRiends = _manager.GetFriends(User.Identity.Name),
+            };
+            return View(viewModel);
+        }
     }
 }

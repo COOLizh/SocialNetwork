@@ -21,7 +21,7 @@
 	<ul id="main-menu">
     	<li><a href="@this.Url.Action("Profile", "Account")">Profile</a></li>
         <li><a href="@this.Url.Action("Friends", "Account")"</a>Friends</li>
-        <li><a href="#work">Messages</a></li>
+        <li><a href="@this.Url.Action("Dialogues", "Account")">Messages</a></li>
     </ul>
 </div>
 
@@ -48,14 +48,18 @@
             </tr>
             @if (Model != null)
             {
-                @foreach (var item in Model.Users){
-                    <tr>
-                        <td><big><big>@item.Name</big></big></td>
-                        <td><big><big>@item.Surname</big></big></td>
-                        <td><big><big>@item.BirthDay</big></big></td>
-                        <td><big><big>@item.Country</big></big></td>
-                        <td><a href="~/Account/UsersProfile?id=@item.Email"><big><big>View profile</big></big></a></td>
-                    </tr>
+                @foreach (var item in Model.Users)
+                {
+                    @if(item.Email != User.Identity.Name)
+                    {
+                        <tr>
+                            <td><big><big>@item.Name</big></big></td>
+                            <td><big><big>@item.Surname</big></big></td>
+                            <td><big><big>@item.BirthDay</big></big></td>
+                            <td><big><big>@item.Country</big></big></td>
+                            <td><a href="~/Account/UsersProfile?id=@item.Email"><big><big>View profile</big></big></a></td>
+                        </tr>
+                    }
                 }
             }
         </table>

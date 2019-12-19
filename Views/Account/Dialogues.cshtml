@@ -1,9 +1,9 @@
-@model SocialNetwork.Models.User
+@model SocialNetwork.ViewModels.UsersListViewModel
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Profile</title>
+<title>Friends</title>
 <link href="~/profile/styles.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="~/profile/css/prettyPhoto.css" type="text/css" media="screen" charset="utf-8" />
 <link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
@@ -27,32 +27,31 @@
 
 <div id="container">
 
-<!--Begin About Section-->
-    <div id="about">
-    	<h1>@Model.Name @Model.Surname</h1>
-        <ul id="top-social">
-        	<li><a href="#" class="facebook">Facebook</a></li>
-            <li><a href="#" class="twitter">Twitter</a></li>
-            <li><a href="#" class="linkedin">LinkedIn</a></li>
-        </ul>
+<!--Begin Dialogues Section-->
+    <div id="search_friends">
+    	<h1>My dialogues</h1>
         <div class="top-divider"></div>
-        <div class="content">
-        	<img src="~/profile/images/designer-photo.jpg" />
-            <h2>Gender: @Model.Gender</h2>
-            <h2>Birthday: @Model.BirthDay</h2>
-            <h2>Country: @Model.Country</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam risus, dignissim pharetra sagittis sed, adipiscing nec felis. Maecenas non nulla eget ligula semper aliquet. Pellentesque adipiscing pulvinar tortor, a adipiscing felis commodo in. Vestibulum dui magna, mattis in bibendum a, congue vitae lectus. In eu odio tortor, vel congue lacus. Donec viverra viverra eros, in egestas ligula adipiscing non. Morbi et ultricies sapien. Duis metus odio, commodo in tempor quis, euismod et ligula. Vivamus tristique condimentum ipsum sit amet posuere.</p> 
-            <form method="post" asp-controller="Account" asp-action="FriendRequest">
-                <input type="hidden" name="mail" value="@Model.Email">
-                <p><input type="submit" value=" Add to friends"></p>
-            </form>
-        </div>
-    <div class="bottom-divider"></div> 
+        @if (Model != null)
+            {
+                @foreach (var item in Model.FRiends){
+                    <tr>
+                        @if(item.To == User.Identity.Name){
+                            <td><big><big>@item.From</big></big></td>
+                            <td><a href="~/Account/UsersProfile?id=@item.From"><big><big>View profile</big></big></a></td>
+                        }else{
+                            <td><big><big>@item.To</big></big></td>
+                            <td><a href="~/Account/UsersProfile?id=@item.To"><big><big>View profile</big></big></a></td>
+                        }
+                        
+                    </tr>
+                }
+            }
+        <div class="bottom-divider"></div> 
     </div>
-<!--End About Section-->
+<!--End SeachFriends Section-->
 </div>
 
- <!-- The JavaScript -->  
+<!-- The JavaScript -->  
         <script type="text/javascript">
     		$(function() {
                 $('#main-menu li a').bind('click',function(event){
