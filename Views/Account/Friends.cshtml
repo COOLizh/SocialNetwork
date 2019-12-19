@@ -27,8 +27,8 @@
 
 <div id="container">
 
-<!--Begin About Section-->
-    <div id="about">
+<!--Begin SeachFriends Section-->
+    <div id="search_friends">
     	<h1>Search friends</h1>
         <div class="top-divider"></div>
         <div class="wrap">
@@ -54,34 +54,34 @@
                         <td><big><big>@item.Surname</big></big></td>
                         <td><big><big>@item.BirthDay</big></big></td>
                         <td><big><big>@item.Country</big></big></td>
-                        <td><a href="~/Account/UsersProfile?id=@item.Email"><big><big>View profile</big></big></a><td>
+                        <td><a href="~/Account/UsersProfile?id=@item.Email"><big><big>View profile</big></big></a></td>
                     </tr>
                 }
             }
         </table>
         <div class="bottom-divider"></div> 
     </div>
-<!--End About Section-->
+<!--End SeachFriends Section-->
 
 
-<!--Begin Experience Section-->   
-    <div id="experience">
+<!--Begin Friends Section-->   
+    <div id="friends">
         <h1>My friends</h1>
     	@if (Model != null)
             {
                 @foreach (var item in Model.FRiends){
                     <tr>
                         <td><big><big>@item.From</big></big></td>
-                        <td><big><big>@item.To</big></big></td>
+                        <td><p><input type="submit" value="Write message"></p></td>
                     </tr>
                 }
             }
         <div class="bottom-divider"></div>
     </div>
-<!--End Experience Section-->
+<!--End Friends Section-->
 
-    <!--Begin Experience Section-->   
-    <div id="experience">
+    <!--Begin Requests Section-->   
+    <div id="requests">
         <h1>Requests</h1>
         <table class="table table-striped">
             <tr>
@@ -93,15 +93,31 @@
                 {
                     @foreach (var item in Model.Requests){
                         <tr>
-                            <td><big><big>@item.From</big></big></td>
-                            <td><big><big>@item.To</big></big></td>
+                            @if(item.To == User.Identity.Name){
+                                
+                                <td><big><big>@item.From</big></big></td>
+                                <td><big><big>Me</big></big></td>
+
+                                <form method="post" asp-controller="Account" asp-action="AcceptFriendRequest">
+                                    <input type="hidden" name="email" value="@item.From">
+                                    <td><p><input type="submit" value="Accept"></p></td>
+                                </form>
+
+                                <td><p><input type="submit" value="Decline"></p></td>
+
+                                <td><a href="~/Account/UsersProfile?id=@item.From"><big><big>View profile</big></big></a></td>
+                            }else{
+                                <td><big><big>Me</big></big></td>
+                                <td><big><big>@item.To</big></big></td>
+                                <td><big><big>In processing...</big></big></td>
+                            }
                         </tr>
                     }
                 }
         </table>
         <div class="bottom-divider"></div>
     </div>
-<!--End Experience Section-->
+<!--End Requests Section-->
 </div>
 
  <!-- The JavaScript -->  

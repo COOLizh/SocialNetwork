@@ -67,5 +67,11 @@ namespace SocialNetwork.Controllers
             _manager.SendFriendsRequest(User.Identity.Name, mail);
             return RedirectToAction("Friends", "Account");
         }
+
+        [HttpPost]
+        public IActionResult AcceptFriendRequest(string email){
+            _manager.AcceptFriendsRequest(email, User.Identity.Name);
+            return RedirectToAction("Friends", "Account");
+        }
     }
 }
