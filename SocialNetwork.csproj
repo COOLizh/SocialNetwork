@@ -10,11 +10,14 @@
 
   <ItemGroup>
     <PackageReference Include="entityframework" Version="6.3.0" />
+    <PackageReference Include="ExifLib.Standard" Version="1.7.0" />
     <PackageReference Include="MailKit" Version="2.4.1" />
+    <PackageReference Include="MetadataExtractor" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.0" />
     <PackageReference Include="MySql.Data" Version="8.0.18" />

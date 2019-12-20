@@ -13,6 +13,8 @@ using SocialNetwork.Models;
 using Microsoft.AspNetCore.Identity;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using SocialNetwork.Logger;
+using System.IO;
 
 namespace SocialNetwork
 {
@@ -59,7 +61,7 @@ namespace SocialNetwork
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseStaticFiles();
-            loggerFactory.AddConsole();
+            loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logs.txt"));
 
             if (env.IsDevelopment())
             {

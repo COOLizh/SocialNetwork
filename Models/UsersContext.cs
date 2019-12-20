@@ -11,6 +11,7 @@ namespace SocialNetwork.Models
     public class UsersContext : IdentityDbContext<User>
     {
         public DbSet<FriendRequests> FriendsRequests {get; set;}
+        //public DbSet<Messages> Messages {get; set;}
         public UsersContext(DbContextOptions<UsersContext> options)
             : base(options)
         {

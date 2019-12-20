@@ -16,6 +16,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using ExifLib;
+using MetadataExtractor;
+//using MetadataExtractor.Formats.Exif;
 
 namespace SocialNetwork.Controllers
 {
@@ -102,6 +105,22 @@ namespace SocialNetwork.Controllers
                     file.CopyTo(fileStream);
                 }
                 usr.Photo = path;
+                
+                var pc = new PhotoCoordinatesModel();
+                try{
+                    using (var reader = new ExifReader(_appEnvironment.WebRootPath + path))
+                    {
+                        pc.Lat = reader.GetLatitude();
+                        pc.Lon = reader.GetLongitude();
+                    }
+                    Console.WriteLine(pc.Lat);
+                    Console.WriteLine(pc.Lon);
+                }
+                catch(ExifLibException exifex)
+                {
+                    pc.Error = exifex.Message;
+                }
+
                 await _userManager.UpdateAsync(usr);
             }
  
