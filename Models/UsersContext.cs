@@ -84,7 +84,8 @@ namespace SocialNetwork.Models
 
         public List<Message> GetDialogue(string dialogueId)
         {
-            return Messages.Where(i => i.DialogId == dialogueId).ToList();
+            List<Message> mes = Messages.Where(i => (i.DialogId == dialogueId)).ToList();
+            return mes.OrderBy(i => i.Time).ToList();
         }
 
         public void SendMessage(string msg, string dialogueId, string from)
@@ -93,6 +94,7 @@ namespace SocialNetwork.Models
             mes.DialogId = dialogueId;
             mes.Text = msg;
             mes.From = from;
+            mes.Time = DateTime.Now;
             Messages.Add(mes);
             SaveChanges(); 
         }
