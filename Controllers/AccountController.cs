@@ -17,8 +17,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using ExifLib;
-using MetadataExtractor;
-//using MetadataExtractor.Formats.Exif;
+using System.Xml.Linq; 
 
 namespace SocialNetwork.Controllers
 {
@@ -115,6 +114,7 @@ namespace SocialNetwork.Controllers
                     }
                     Console.WriteLine(pc.Lat);
                     Console.WriteLine(pc.Lon);
+                    //Console.WriteLine(GetAddress(pc.Lat.ToString(), pc.Lon.ToString()));
                 }
                 catch(ExifLibException exifex)
                 {
@@ -126,5 +126,40 @@ namespace SocialNetwork.Controllers
  
             return RedirectToAction("Profile", "Account");
         }
+
+        public IActionResult StartDialogue(string To, string From){
+            if(_manager.isDialogueExists(_manager.getDialogueId(From, To))){
+                return RedirectToAction("Dialogue", "Account", new { ID = _manager.getDialogueId(From, To)});
+            }
+            return RedirectToAction("Dialogue", "Account", new { ID = _manager.getDialogueId(To, From)});
+        }
+        
+        [HttpGet]
+        public IActionResult Dialogue(string ID){
+            DialogueViewModel viewModel = new DialogueViewModel();
+            viewModel.messages = _manager.GetDialogue(ID);
+            viewModel.id = ID;
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult SendMessage(string id, string message){
+            _manager.SendMessage(message, id, User.Identity.Name);
+            return RedirectToAction("Dialogue", "Account", new {ID = id});
+        }
+        /*
+        private string GetAddress(string latitude, string longitude)
+        {
+                string locationName = "";
+                string url = string.Format("http://maps.googleapis.com/maps/api/geocode/xml?latlng={0},{1}&sensor=false", latitude, longitude);
+                Console.WriteLine(url);
+                XElement xml = XElement.Load(url);
+                if (xml.Element("status").Value == "OK")
+                {
+                    locationName = string.Format("{0}",
+                        xml.Element("result").Element("formatted_address").Value);
+                }
+                return locationName;
+        }  */
     }
 }

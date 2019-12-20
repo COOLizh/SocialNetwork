@@ -1,10 +1,12 @@
 namespace SocialNetwork.Models
 {
-    public class Messages
+    public class Message
     {
         public string Id {get; set;}
+        public string DialogId {get; set;}
         public string From{get; set;}
         public string To{get; set;}
-        public string Message {get; set;}
+        public string Text {get; set;}
+
     }
 }

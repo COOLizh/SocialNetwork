@@ -1,9 +1,9 @@
-@model SocialNetwork.ViewModels.UsersListViewModel
+@model SocialNetwork.ViewModels.DialogueViewModel;
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Dialogs</title>
+<title>Friends</title>
 <link href="~/profile/styles.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="~/profile/css/prettyPhoto.css" type="text/css" media="screen" charset="utf-8" />
 <link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
@@ -27,31 +27,30 @@
 
 <div id="container">
 
-<!--Begin Dialogues Section-->
+<!--Begin SeachFriends Section-->
     <div id="search_friends">
-    	<h1>My dialogues</h1>
         <div class="top-divider"></div>
-        @if (Model != null)
-            {
-                    @foreach (var item in Model.FRiends){
-                        <tr>
-                            @if(item.To == User.Identity.Name){
-                                <td><big><big>@item.From</big></big></td>
-                            }else{
-                                <td><big><big>@item.To</big></big></td>
-                            }
-                            <input type="hidden" name="To" value="@item.To">
-                            <input type="hidden" name="To" value="@item.From">
-                            <td><a asp-action="StartDialogue" asp-controller="Account"/><big><big>Start messaging</big></big></td>
-                        </tr>
-                    }
+        <div class="wrap">
+         <table class="table table-striped">
+            @foreach(var item in Model.messages){
+                <tr>
+                    <td><big><big>@item.From : </big></big></td>
+                    <td><big><big>@item.Text</big></big></td>
+                </tr>
             }
+        </table>
+        <form method="post" asp-controller="Account" asp-action="SendMessage">
+            <p><b>Enter message</b></p>
+            <input type="hidden" name="id" value="@Model.id">
+            <p><textarea name="message"></textarea></p>
+            <p><input type="submit"></p>
+        </form>
         <div class="bottom-divider"></div> 
     </div>
 <!--End SeachFriends Section-->
 </div>
 
-<!-- The JavaScript -->  
+ <!-- The JavaScript -->  
         <script type="text/javascript">
     		$(function() {
                 $('#main-menu li a').bind('click',function(event){

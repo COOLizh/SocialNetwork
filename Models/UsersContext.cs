@@ -5,13 +5,15 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Linq;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace SocialNetwork.Models
 {
     public class UsersContext : IdentityDbContext<User>
     {
         public DbSet<FriendRequests> FriendsRequests {get; set;}
-        //public DbSet<Messages> Messages {get; set;}
+        public DbSet<Message> Messages {get; set;}
         public UsersContext(DbContextOptions<UsersContext> options)
             : base(options)
         {
@@ -62,6 +64,58 @@ namespace SocialNetwork.Models
             List<FriendRequests> frnd = FriendsRequests.Where(i => (i.From == client && i.isConfirmed == false) 
             || (i.To == client && i.isConfirmed == false)).ToList();
             return frnd;
+        }
+
+        public string getDialogueId(string from, string to){
+            string tmp = from + to;
+            using (MD5 md5Hash = MD5.Create())
+            {
+                return GetMd5Hash(md5Hash, tmp);
+            }
+        }
+
+        public bool isDialogueExists(string dialogueId){
+            Message[] msg = Messages.Where(i => i.DialogId == dialogueId).ToArray();
+            if(msg.Length == 0){
+                return false;
+            }
+            return true;
+        }
+
+        public List<Message> GetDialogue(string dialogueId)
+        {
+            return Messages.Where(i => i.DialogId == dialogueId).ToList();
+        }
+
+        public void SendMessage(string msg, string dialogueId, string from)
+        {
+            Message mes = new Message();
+            mes.DialogId = dialogueId;
+            mes.Text = msg;
+            mes.From = from;
+            Messages.Add(mes);
+            SaveChanges(); 
+        }
+
+        static string GetMd5Hash(MD5 md5Hash, string input)
+        {
+
+            // Convert the input string to a byte array and compute the hash.
+            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            // Create a new Stringbuilder to collect the bytes
+            // and create a string.
+            StringBuilder sBuilder = new StringBuilder();
+
+            // Loop through each byte of the hashed data 
+            // and format each one as a hexadecimal string.
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+
+            // Return the hexadecimal string.
+            return sBuilder.ToString();
         }
     }
 }
