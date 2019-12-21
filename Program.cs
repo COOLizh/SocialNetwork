@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace SocialNetwork
 {
@@ -15,7 +16,8 @@ namespace SocialNetwork
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
-                .UseStartup<Startup>()
+                .UseStartup<Startup>().ConfigureAppConfiguration((HostWeb, config) =>{
+                config.AddJsonFile("emailsettings.json");})
                 .Build();
 
             host.Run();

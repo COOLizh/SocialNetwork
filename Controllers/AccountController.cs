@@ -17,7 +17,12 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using ExifLib;
-using System.Xml.Linq; 
+using System.Xml.Linq;
+using MetOfficeDataPoint;
+using MetOfficeDataPoint.Models;
+using MetOfficeDataPoint.Models.GeoCoordinate;
+using GoogleMaps;
+
 
 namespace SocialNetwork.Controllers
 {
@@ -112,9 +117,24 @@ namespace SocialNetwork.Controllers
                         pc.Lat = reader.GetLatitude();
                         pc.Lon = reader.GetLongitude();
                     }
-                    Console.WriteLine(pc.Lat);
-                    Console.WriteLine(pc.Lon);
-                    //Console.WriteLine(GetAddress(pc.Lat.ToString(), pc.Lon.ToString()));
+                    double lat = 0, lon = 0;
+                    if (pc.Lat.HasValue)
+                        lat = pc.Lat.Value;
+                    else
+                    {
+                        await _userManager.UpdateAsync(usr);
+                        return RedirectToAction("Profile", "Account");
+                    }
+                    if (pc.Lon.HasValue)
+                        lon = pc.Lon.Value;
+                    else
+                    {
+                        await _userManager.UpdateAsync(usr);
+                        return RedirectToAction("Profile", "Account");
+                    }
+                    usr.PhotoLon = lon;
+                    usr.PhotoLat = lat;
+                    //Console.WriteLine(GetAddress(pc.Lat, pc.Lon));
                 }
                 catch(ExifLibException exifex)
                 {
@@ -143,23 +163,34 @@ namespace SocialNetwork.Controllers
         }
 
         [HttpPost]
-        public IActionResult SendMessage(string id, string message){
-            _manager.SendMessage(message, id, User.Identity.Name);
-            return RedirectToAction("Dialogue", "Account", new {ID = id});
+        public void SendMessage(string id, string msg){
+            _manager.SendMessage(msg, id, User.Identity.Name);
         }
-        /*
-        private string GetAddress(string latitude, string longitude)
+
+        [HttpGet]
+        public async Task<IActionResult> Map()
         {
-                string locationName = "";
-                string url = string.Format("http://maps.googleapis.com/maps/api/geocode/xml?latlng={0},{1}&sensor=false", latitude, longitude);
-                Console.WriteLine(url);
-                XElement xml = XElement.Load(url);
-                if (xml.Element("status").Value == "OK")
-                {
-                    locationName = string.Format("{0}",
-                        xml.Element("result").Element("formatted_address").Value);
-                }
-                return locationName;
+            return View(await _userManager.FindByEmailAsync(User.Identity.Name));
+        }
+
+        /*
+        private string GetAddress(double? latitude, double? longitude)
+        {
+            double lat = 0, lon = 0;
+            if (latitude.HasValue)
+                lat = latitude.Value;
+            else
+                return "";
+            if (longitude.HasValue)
+                lon = longitude.Value;
+            else
+                return "";
+            MetOfficeDataPointClient client = new MetOfficeDataPointClient("b2d92608-86fe-461e-8717-25e269600438");
+            GeoCoordinate coordinate = new GeoCoordinate(lat, lon);
+            Location location = client.GetClosestSite(coordinate).Result;
+            return location.Name;
         }  */
+
+        
     }
 }

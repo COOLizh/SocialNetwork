@@ -1,16 +1,16 @@
 using MimeKit;
 using MailKit.Net.Smtp;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace SocialNetwork.Services
 {
     public class EmailService
     {
-        public async Task SendEmailAsync(string email, string subject, string message)
+        public async Task SendEmailAsync(string email, string subject, string message, IConfiguration _config)
         {
             var emailMessage = new MimeMessage();
- 
-            emailMessage.From.Add(new MailboxAddress("Site administration", "alienv661@mail.ru"));
+            emailMessage.From.Add(new MailboxAddress("Site administration", _config["email"]));
             emailMessage.To.Add(new MailboxAddress("", email));
             emailMessage.Subject = subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
@@ -21,7 +21,7 @@ namespace SocialNetwork.Services
             using (var client = new SmtpClient())
             {
                 await client.ConnectAsync("smtp.mail.ru", 587, false);
-                await client.AuthenticateAsync("alienv661@mail.ru", "A_S_Dfgh123");
+                await client.AuthenticateAsync(_config["email"], _config["password"]);
                 await client.SendAsync(emailMessage);
                 await client.DisconnectAsync(true);
             }

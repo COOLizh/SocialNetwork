@@ -25,5 +25,9 @@ namespace SocialNetwork.Models
         override public string Email { get; set; }
 
         public string Photo {get; set;}
+
+        public double PhotoLon {get; set;}
+        
+        public double PhotoLat {get; set;}
     }
 }

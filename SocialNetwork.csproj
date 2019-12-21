@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
   </PropertyGroup>
 
    <ItemGroup>
@@ -11,8 +13,12 @@
   <ItemGroup>
     <PackageReference Include="entityframework" Version="6.3.0" />
     <PackageReference Include="ExifLib.Standard" Version="1.7.0" />
+    <PackageReference Include="GoogleMaps" Version="1.0.1" />
     <PackageReference Include="MailKit" Version="2.4.1" />
     <PackageReference Include="MetadataExtractor" Version="2.2.0" />
+    <PackageReference Include="MetOfficeDataPoint" Version="2.1.0" />
+    <PackageReference Include="microsoft-web-helpers" Version="2.1.20710.2" />
+    <PackageReference Include="Microsoft.AspNet.Web.Helpers.Mvc" Version="2.0.20710" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.0" />

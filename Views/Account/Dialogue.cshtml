@@ -29,7 +29,9 @@
 
 <!--Begin SeachFriends Section-->
     <div id="search_friends">
+        <h1>Dialog</h1>
         <div class="top-divider"></div>
+
          <table class="table table-striped">
             @foreach(var item in Model.messages){
                 <tr>
@@ -38,12 +40,14 @@
                 </tr>
             }
         </table>
-        <form method="post" asp-controller="Account" asp-action="SendMessage">
+
+        <table class="table table-striped" id="table">
+            
+        </table>
             <p><b>Enter message</b></p>
             <input type="hidden" name="id" value="@Model.id">
-            <p><textarea name="message"></textarea></p>
-            <p><input type="submit"></p>
-        </form>
+            <p><textarea name="message" id="text"></textarea></p>
+            <p><input type="submit" id="btn"></p>
         <div class="bottom-divider"></div> 
     </div>
 <!--End SeachFriends Section-->
@@ -67,6 +71,41 @@
     		$("a[rel^='prettyPhoto']").prettyPhoto({social_tools:false, deeplinking: false});
   			});
 
+        </script>
+        
+        <script src="~/signalr/signalr.min.js"></script>
+        <script>
+            const hubConnection = new signalR.HubConnectionBuilder()
+                .withUrl("/RuHub")
+                .configureLogging(signalR.LogLevel.Information)
+                .build();
+
+            hubConnection.on("Receive", function (person, message) {
+
+                let element = document.createElement("li");
+                element.innerHTML = `
+                            <tr>
+                                <td><big><big>${person} : </big></big></td>
+                                <td><big><big>${message}</big></big></td>
+                            </tr>`;
+                let firstElem = document.getElementById("table");
+                document.getElementById("table").appendChild(element, firstElem);
+            });
+
+            document.getElementById("btn").addEventListener("click", function (e) {          
+                let message = document.getElementById("text").value;
+                hubConnection.invoke("Send", "@Model.id", "@User.Identity.Name", message);
+                $.ajax({
+                    url:'@Url.Action("SendMessage")',
+                    type: "POST",
+                    data: { id: "@Model.id", msg: message },
+                    dataType: "text"
+                });
+            });
+
+            hubConnection.start().then(() => {
+                hubConnection.invoke("JoinGroup", "@Model.id").catch(err => console.error(err.toString()));
+            });
         </script>
 </body>
 </html>

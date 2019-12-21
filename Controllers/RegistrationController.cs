@@ -14,6 +14,7 @@ using System.Security.Claims;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.Configuration;
 
 namespace SocialNetwork.Controllers
 {
@@ -21,10 +22,12 @@ namespace SocialNetwork.Controllers
     {
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
-        public RegistrationController(UserManager<User> userManager, SignInManager<User> signInManager)
+        private readonly IConfiguration _config;
+        public RegistrationController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _config = config;
         }
 
         [HttpGet]
@@ -113,9 +116,9 @@ namespace SocialNetwork.Controllers
                         "Registration",
                         new { userId = usr.Id, code = code },
                         protocol: HttpContext.Request.Scheme);
-                    EmailService emailService = new EmailService();
+                        EmailService emailService = new EmailService();
                     await emailService.SendEmailAsync(model.Email, "Confirm your account",
-                        $"Confirm registration by clicking on the link: <a href='{callbackUrl}'>link</a>");
+                        $"Confirm registration by clicking on the link: <a href='{callbackUrl}'>link</a>", _config);
  
                     return Content("To complete the registration, check your email and follow the link provided in the letter");
                 }

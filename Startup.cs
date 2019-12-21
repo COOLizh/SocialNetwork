@@ -15,6 +15,8 @@ using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using SocialNetwork.Logger;
 using System.IO;
+using SocialNetwork.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace SocialNetwork
 {
@@ -26,6 +28,7 @@ namespace SocialNetwork
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile("emailsettings.json", optional: false, reloadOnChange: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -47,6 +50,7 @@ namespace SocialNetwork
 				settings.Password.RequireNonAlphanumeric = false;
 			}).AddEntityFrameworkStores<UsersContext>()
             .AddDefaultTokenProviders();
+            services.AddSignalR();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options => //CookieAuthenticationOptions
@@ -79,6 +83,11 @@ namespace SocialNetwork
                 routes.MapRoute("Account", "Registration/Registration", new { controller = "Account", action = "Profile" });
                 routes.MapRoute("Friends", "Registration/Registration", new { controller = "Account", action = "Friends" });
                 routes.MapRoute("SearchFriends", "Registration/Registration/{id?}", new { controller = "Account", action = "UsersProfile" });
+                routes.MapRoute("Map", "Registration/Registration", new { controller = "Account", action = "Map" });
+            });
+            app.UseSignalR(routes => 
+            {
+                routes.MapHub<RuHub>("/RuHub");
             });
         }
     }
