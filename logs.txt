@@ -14792,3 +14792,281 @@ Executed action method SocialNetwork.Controllers.AccountController.SendMessage (
 Executed action SocialNetwork.Controllers.AccountController.SendMessage (SocialNetwork) in 334.6801ms
 Request finished in 347.9134ms 200 
 Request finished in 26326.4895ms 101 
+Request starting HTTP/1.1 GET http://localhost:7800/  
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Route matched with {action = "Index", controller = "Home"}. Executing action SocialNetwork.Controllers.HomeController.Index (SocialNetwork)
+Executing action method SocialNetwork.Controllers.HomeController.Index (SocialNetwork) - Validation state: Valid
+Executed action method SocialNetwork.Controllers.HomeController.Index (SocialNetwork), returned result Microsoft.AspNetCore.Mvc.ViewResult in 8.5424ms.
+Executing ViewResult, running view Index.
+Executed ViewResult - view Index executed in 752.1526ms.
+Executed action SocialNetwork.Controllers.HomeController.Index (SocialNetwork) in 862.7924ms
+Request finished in 3802.697ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:7800/images/img-01.png  
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Request finished in 86.5939ms 404 
+Request starting HTTP/1.1 POST http://localhost:7800/Registration/Login application/x-www-form-urlencoded 274
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Route matched with {action = "Login", controller = "Registration"}. Executing action SocialNetwork.Controllers.RegistrationController.Login (SocialNetwork)
+Executing action method SocialNetwork.Controllers.RegistrationController.Login (SocialNetwork) with arguments (SocialNetwork.ViewModels.LoginViewModel) - Validation state: Valid
+Executed DbCommand (11ms) [Parameters=[@__normalizedUserName_0='?' (Size = -1)], CommandType='Text', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`BirthDay`, `u`.`ConcurrencyStamp`, `u`.`Country`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`Gender`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`Name`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`Photo`, `u`.`PhotoLat`, `u`.`PhotoLon`, `u`.`SecurityStamp`, `u`.`Surname`, `u`.`TwoFactorEnabled`, `u`.`UserName`
+FROM `AspNetUsers` AS `u`
+WHERE `u`.`NormalizedUserName` = @__normalizedUserName_0
+LIMIT 1
+Executed DbCommand (1ms) [Parameters=[@__user_Id_0='?' (Size = -1)], CommandType='Text', CommandTimeout='30']
+SELECT `uc`.`Id`, `uc`.`ClaimType`, `uc`.`ClaimValue`, `uc`.`UserId`
+FROM `AspNetUserClaims` AS `uc`
+WHERE `uc`.`UserId` = @__user_Id_0
+Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (Size = -1)], CommandType='Text', CommandTimeout='30']
+SELECT `role`.`Name`
+FROM `AspNetUserRoles` AS `userRole`
+INNER JOIN `AspNetRoles` AS `role` ON `userRole`.`RoleId` = `role`.`Id`
+WHERE `userRole`.`UserId` = @__userId_0
+AuthenticationScheme: Identity.Application signed in.
+Executed DbCommand (2ms) [Parameters=[@__normalizedEmail_0='?' (Size = -1)], CommandType='Text', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`BirthDay`, `u`.`ConcurrencyStamp`, `u`.`Country`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`Gender`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`Name`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`Photo`, `u`.`PhotoLat`, `u`.`PhotoLon`, `u`.`SecurityStamp`, `u`.`Surname`, `u`.`TwoFactorEnabled`, `u`.`UserName`
+FROM `AspNetUsers` AS `u`
+WHERE `u`.`NormalizedEmail` = @__normalizedEmail_0
+LIMIT 1
+AuthenticationScheme: Cookies signed in.
+Executed action method SocialNetwork.Controllers.RegistrationController.Login (SocialNetwork), returned result Microsoft.AspNetCore.Mvc.RedirectToActionResult in 1610.5394ms.
+Executing RedirectResult, redirecting to /Account/Profile.
+Executed action SocialNetwork.Controllers.RegistrationController.Login (SocialNetwork) in 1934.9718ms
+Request finished in 2030.294ms 302 
+Request starting HTTP/1.1 GET http://localhost:7800/Account/Profile  
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Route matched with {action = "Profile", controller = "Account"}. Executing action SocialNetwork.Controllers.AccountController.Profile (SocialNetwork)
+Authorization was successful.
+Executing action method SocialNetwork.Controllers.AccountController.Profile (SocialNetwork) - Validation state: Valid
+Executed DbCommand (1ms) [Parameters=[@__normalizedEmail_0='?' (Size = -1)], CommandType='Text', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`BirthDay`, `u`.`ConcurrencyStamp`, `u`.`Country`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`Gender`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`Name`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`Photo`, `u`.`PhotoLat`, `u`.`PhotoLon`, `u`.`SecurityStamp`, `u`.`Surname`, `u`.`TwoFactorEnabled`, `u`.`UserName`
+FROM `AspNetUsers` AS `u`
+WHERE `u`.`NormalizedEmail` = @__normalizedEmail_0
+LIMIT 1
+Executed action method SocialNetwork.Controllers.AccountController.Profile (SocialNetwork), returned result Microsoft.AspNetCore.Mvc.ViewResult in 18.6693ms.
+Executing ViewResult, running view Profile.
+Executed ViewResult - view Profile executed in 55.9539ms.
+Executed action SocialNetwork.Controllers.AccountController.Profile (SocialNetwork) in 130.8988ms
+Request finished in 143.3665ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:7800/photos/kulizhenko.v@gmail.com_avatar.png  
+The file /photos/kulizhenko.v@gmail.com_avatar.png was not modified
+Request finished in 55.1841ms 304 image/png
+Request starting HTTP/1.1 GET http://localhost:7800/Account/Dialogues  
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Route matched with {action = "Dialogues", controller = "Account"}. Executing action SocialNetwork.Controllers.AccountController.Dialogues (SocialNetwork)
+Executing action method SocialNetwork.Controllers.AccountController.Dialogues (SocialNetwork) - Validation state: Valid
+Executed DbCommand (1ms) [Parameters=[@__client_0='?' (Size = -1)], CommandType='Text', CommandTimeout='30']
+SELECT `i`.`Id`, `i`.`From`, `i`.`To`, `i`.`isConfirmed`
+FROM `FriendsRequests` AS `i`
+WHERE ((`i`.`From` = @__client_0) AND (`i`.`isConfirmed` = 1)) OR ((`i`.`To` = @__client_0) AND (`i`.`isConfirmed` = 1))
+Executed action method SocialNetwork.Controllers.AccountController.Dialogues (SocialNetwork), returned result Microsoft.AspNetCore.Mvc.ViewResult in 77.5239ms.
+Executing ViewResult, running view Dialogues.
+Executed ViewResult - view Dialogues executed in 31.9529ms.
+Executed action SocialNetwork.Controllers.AccountController.Dialogues (SocialNetwork) in 110.5878ms
+Request finished in 119.0753ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:7800/Account/StartDialogue  
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Route matched with {action = "StartDialogue", controller = "Account"}. Executing action SocialNetwork.Controllers.AccountController.StartDialogue (SocialNetwork)
+Executing action method SocialNetwork.Controllers.AccountController.StartDialogue (SocialNetwork) with arguments (, ) - Validation state: Valid
+Executed DbCommand (1ms) [Parameters=[@__dialogueId_0='?' (Size = -1)], CommandType='Text', CommandTimeout='30']
+SELECT `i`.`Id`, `i`.`DialogId`, `i`.`From`, `i`.`Text`, `i`.`Time`
+FROM `Messages` AS `i`
+WHERE `i`.`DialogId` = @__dialogueId_0
+Executed action method SocialNetwork.Controllers.AccountController.StartDialogue (SocialNetwork), returned result Microsoft.AspNetCore.Mvc.RedirectToActionResult in 48.9244ms.
+Executing RedirectResult, redirecting to /Account/Dialogue?ID=d41d8cd98f00b204e9800998ecf8427e.
+Executed action SocialNetwork.Controllers.AccountController.StartDialogue (SocialNetwork) in 54.995ms
+Request finished in 70.6464ms 302 
+Request starting HTTP/1.1 GET http://localhost:7800/Account/Dialogue?ID=d41d8cd98f00b204e9800998ecf8427e  
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Route matched with {action = "Dialogue", controller = "Account"}. Executing action SocialNetwork.Controllers.AccountController.Dialogue (SocialNetwork)
+Executing action method SocialNetwork.Controllers.AccountController.Dialogue (SocialNetwork) with arguments (d41d8cd98f00b204e9800998ecf8427e) - Validation state: Valid
+Executed DbCommand (1ms) [Parameters=[@__dialogueId_0='?' (Size = -1)], CommandType='Text', CommandTimeout='30']
+SELECT `i`.`Id`, `i`.`DialogId`, `i`.`From`, `i`.`Text`, `i`.`Time`
+FROM `Messages` AS `i`
+WHERE `i`.`DialogId` = @__dialogueId_0
+Executed action method SocialNetwork.Controllers.AccountController.Dialogue (SocialNetwork), returned result Microsoft.AspNetCore.Mvc.ViewResult in 10.226ms.
+Executing ViewResult, running view Dialogue.
+Executed ViewResult - view Dialogue executed in 36.0196ms.
+Executed action SocialNetwork.Controllers.AccountController.Dialogue (SocialNetwork) in 51.9827ms
+Request finished in 61.2709ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:7800/signalr/signalr.min.js  
+The file /signalr/signalr.min.js was not modified
+Request finished in 0.619ms 304 application/javascript
+Request starting HTTP/1.1 POST http://localhost:7800/RuHub/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Request finished in 145.747ms 200 application/json
+Request starting HTTP/1.1 GET http://localhost:7800/RuHub?id=C2ydGmpLwrqW66PQ4cjQXA  
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Completed connection handshake. Using HubProtocol 'json'.
+Request starting HTTP/1.1 POST http://localhost:7800/Account/SendMessage application/x-www-form-urlencoded; charset=UTF-8 44
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Route matched with {action = "SendMessage", controller = "Account"}. Executing action SocialNetwork.Controllers.AccountController.SendMessage (SocialNetwork)
+Executing action method SocialNetwork.Controllers.AccountController.SendMessage (SocialNetwork) with arguments (d41d8cd98f00b204e9800998ecf8427e, ssss) - Validation state: Valid
+Executed DbCommand (5ms) [Parameters=[@p0='?' (Size = -1), @p1='?' (Size = -1), @p2='?' (Size = -1), @p3='?' (Size = -1), @p4='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Messages` (`Id`, `DialogId`, `From`, `Text`, `Time`)
+VALUES (@p0, @p1, @p2, @p3, @p4);
+Executed action method SocialNetwork.Controllers.AccountController.SendMessage (SocialNetwork), returned result Microsoft.AspNetCore.Mvc.EmptyResult in 322.5739ms.
+Executed action SocialNetwork.Controllers.AccountController.SendMessage (SocialNetwork) in 333.8431ms
+Request finished in 346.097ms 200 
+Request starting HTTP/1.1 POST http://localhost:7800/Account/SendMessage application/x-www-form-urlencoded; charset=UTF-8 51
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Route matched with {action = "SendMessage", controller = "Account"}. Executing action SocialNetwork.Controllers.AccountController.SendMessage (SocialNetwork)
+Executing action method SocialNetwork.Controllers.AccountController.SendMessage (SocialNetwork) with arguments (d41d8cd98f00b204e9800998ecf8427e, ssssddfffff) - Validation state: Valid
+Executed DbCommand (1ms) [Parameters=[@p0='?' (Size = -1), @p1='?' (Size = -1), @p2='?' (Size = -1), @p3='?' (Size = -1), @p4='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Messages` (`Id`, `DialogId`, `From`, `Text`, `Time`)
+VALUES (@p0, @p1, @p2, @p3, @p4);
+Executed action method SocialNetwork.Controllers.AccountController.SendMessage (SocialNetwork), returned result Microsoft.AspNetCore.Mvc.EmptyResult in 40.511ms.
+Executed action SocialNetwork.Controllers.AccountController.SendMessage (SocialNetwork) in 41.4466ms
+Request finished in 53.7813ms 200 
+Request starting HTTP/1.1 POST http://localhost:7800/Account/SendMessage application/x-www-form-urlencoded; charset=UTF-8 55
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Route matched with {action = "SendMessage", controller = "Account"}. Executing action SocialNetwork.Controllers.AccountController.SendMessage (SocialNetwork)
+Executing action method SocialNetwork.Controllers.AccountController.SendMessage (SocialNetwork) with arguments (d41d8cd98f00b204e9800998ecf8427e, ssssddfffffeeee) - Validation state: Valid
+Executed DbCommand (1ms) [Parameters=[@p0='?' (Size = -1), @p1='?' (Size = -1), @p2='?' (Size = -1), @p3='?' (Size = -1), @p4='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `Messages` (`Id`, `DialogId`, `From`, `Text`, `Time`)
+VALUES (@p0, @p1, @p2, @p3, @p4);
+Executed action method SocialNetwork.Controllers.AccountController.SendMessage (SocialNetwork), returned result Microsoft.AspNetCore.Mvc.EmptyResult in 79.222ms.
+Executed action SocialNetwork.Controllers.AccountController.SendMessage (SocialNetwork) in 80.4297ms
+Request finished in 88.7024ms 200 
+Request finished in 11337.2834ms 101 
+Request starting HTTP/1.1 GET http://localhost:7800/  
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Route matched with {action = "Index", controller = "Home"}. Executing action SocialNetwork.Controllers.HomeController.Index (SocialNetwork)
+Executing action method SocialNetwork.Controllers.HomeController.Index (SocialNetwork) - Validation state: Valid
+Executed action method SocialNetwork.Controllers.HomeController.Index (SocialNetwork), returned result Microsoft.AspNetCore.Mvc.ViewResult in 9.3142ms.
+Executing ViewResult, running view Index.
+Executed ViewResult - view Index executed in 878.3782ms.
+Executed action SocialNetwork.Controllers.HomeController.Index (SocialNetwork) in 1009.56ms
+Request finished in 4362.7425ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:7800/images/img-01.png  
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Request finished in 178.7415ms 404 
+Request starting HTTP/1.1 GET http://localhost:7800/login/fonts/poppins/Poppins-Bold.ttf  
+Request starting HTTP/1.1 GET http://localhost:7800/login/fonts/poppins/Poppins-Medium.ttf  
+Request starting HTTP/1.1 GET http://localhost:7800/login/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.woff2?v=4.7.0  
+Connection id "0HLS5V11T3UOR", Request id "0HLS5V11T3UOR:00000001": the application aborted the connection.
+Connection id "0HLS5V11T3UOQ", Request id "0HLS5V11T3UOQ:00000001": the application aborted the connection.
+Sending file. Request path: '/login/fonts/poppins/Poppins-Medium.ttf'. Physical path: '/home/vladislav/Рабочий стол/SocialNetwork/wwwroot/login/fonts/poppins/Poppins-Medium.ttf'
+Request finished in 34.7254ms 0 application/x-font-ttf
+Sending file. Request path: '/login/fonts/poppins/Poppins-Bold.ttf'. Physical path: '/home/vladislav/Рабочий стол/SocialNetwork/wwwroot/login/fonts/poppins/Poppins-Bold.ttf'
+Request finished in 161.0454ms 0 application/x-font-ttf
+Request starting HTTP/1.1 GET http://localhost:7800/login/images/icons/favicon.ico  
+Connection id "0HLS5V11T3UOP", Request id "0HLS5V11T3UOP:00000003": the application aborted the connection.
+Sending file. Request path: '/login/images/icons/favicon.ico'. Physical path: '/home/vladislav/Рабочий стол/SocialNetwork/wwwroot/login/images/icons/favicon.ico'
+Request finished in 9.1866ms 0 image/x-icon
+Connection id "0HLS5V11T3UOS", Request id "0HLS5V11T3UOS:00000001": the application aborted the connection.
+Sending file. Request path: '/login/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.woff2'. Physical path: '/home/vladislav/Рабочий стол/SocialNetwork/wwwroot/login/fonts/font-awesome-4.7.0/fonts/fontawesome-webfont.woff2'
+Request finished in 102.6818ms 200 font/woff2
+Request starting HTTP/1.1 POST http://localhost:7800/Registration/Login application/x-www-form-urlencoded 274
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Route matched with {action = "Login", controller = "Registration"}. Executing action SocialNetwork.Controllers.RegistrationController.Login (SocialNetwork)
+Executing action method SocialNetwork.Controllers.RegistrationController.Login (SocialNetwork) with arguments (SocialNetwork.ViewModels.LoginViewModel) - Validation state: Valid
+Executed DbCommand (13ms) [Parameters=[@__normalizedUserName_0='?' (Size = -1)], CommandType='Text', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`BirthDay`, `u`.`ConcurrencyStamp`, `u`.`Country`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`Gender`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`Name`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`Photo`, `u`.`PhotoLat`, `u`.`PhotoLon`, `u`.`SecurityStamp`, `u`.`Surname`, `u`.`TwoFactorEnabled`, `u`.`UserName`
+FROM `AspNetUsers` AS `u`
+WHERE `u`.`NormalizedUserName` = @__normalizedUserName_0
+LIMIT 1
+Executed DbCommand (1ms) [Parameters=[@__user_Id_0='?' (Size = -1)], CommandType='Text', CommandTimeout='30']
+SELECT `uc`.`Id`, `uc`.`ClaimType`, `uc`.`ClaimValue`, `uc`.`UserId`
+FROM `AspNetUserClaims` AS `uc`
+WHERE `uc`.`UserId` = @__user_Id_0
+Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (Size = -1)], CommandType='Text', CommandTimeout='30']
+SELECT `role`.`Name`
+FROM `AspNetUserRoles` AS `userRole`
+INNER JOIN `AspNetRoles` AS `role` ON `userRole`.`RoleId` = `role`.`Id`
+WHERE `userRole`.`UserId` = @__userId_0
+AuthenticationScheme: Identity.Application signed in.
+Executed DbCommand (1ms) [Parameters=[@__normalizedEmail_0='?' (Size = -1)], CommandType='Text', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`BirthDay`, `u`.`ConcurrencyStamp`, `u`.`Country`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`Gender`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`Name`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`Photo`, `u`.`PhotoLat`, `u`.`PhotoLon`, `u`.`SecurityStamp`, `u`.`Surname`, `u`.`TwoFactorEnabled`, `u`.`UserName`
+FROM `AspNetUsers` AS `u`
+WHERE `u`.`NormalizedEmail` = @__normalizedEmail_0
+LIMIT 1
+AuthenticationScheme: Cookies signed in.
+Executed action method SocialNetwork.Controllers.RegistrationController.Login (SocialNetwork), returned result Microsoft.AspNetCore.Mvc.RedirectToActionResult in 1668.3488ms.
+Executing RedirectResult, redirecting to /Account/Profile.
+Executed action SocialNetwork.Controllers.RegistrationController.Login (SocialNetwork) in 1984.2316ms
+Request finished in 2093.9467ms 302 
+Request starting HTTP/1.1 GET http://localhost:7800/Account/Profile  
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Route matched with {action = "Profile", controller = "Account"}. Executing action SocialNetwork.Controllers.AccountController.Profile (SocialNetwork)
+Authorization was successful.
+Executing action method SocialNetwork.Controllers.AccountController.Profile (SocialNetwork) - Validation state: Valid
+Executed DbCommand (2ms) [Parameters=[@__normalizedEmail_0='?' (Size = -1)], CommandType='Text', CommandTimeout='30']
+SELECT `u`.`Id`, `u`.`AccessFailedCount`, `u`.`BirthDay`, `u`.`ConcurrencyStamp`, `u`.`Country`, `u`.`Email`, `u`.`EmailConfirmed`, `u`.`Gender`, `u`.`LockoutEnabled`, `u`.`LockoutEnd`, `u`.`Name`, `u`.`NormalizedEmail`, `u`.`NormalizedUserName`, `u`.`PasswordHash`, `u`.`PhoneNumber`, `u`.`PhoneNumberConfirmed`, `u`.`Photo`, `u`.`PhotoLat`, `u`.`PhotoLon`, `u`.`SecurityStamp`, `u`.`Surname`, `u`.`TwoFactorEnabled`, `u`.`UserName`
+FROM `AspNetUsers` AS `u`
+WHERE `u`.`NormalizedEmail` = @__normalizedEmail_0
+LIMIT 1
+Executed action method SocialNetwork.Controllers.AccountController.Profile (SocialNetwork), returned result Microsoft.AspNetCore.Mvc.ViewResult in 27.9233ms.
+Executing ViewResult, running view Profile.
+Executed ViewResult - view Profile executed in 54.8598ms.
+Executed action SocialNetwork.Controllers.AccountController.Profile (SocialNetwork) in 135.1876ms
+Request finished in 148.5669ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:7800/profile/styles.css  
+Sending file. Request path: '/profile/styles.css'. Physical path: '/home/vladislav/Рабочий стол/SocialNetwork/wwwroot/profile/styles.css'
+Request finished in 0.7542ms 200 text/css
+Request starting HTTP/1.1 GET http://localhost:7800/photos/kulizhenko.v@gmail.com_avatar.png  
+Sending file. Request path: '/photos/kulizhenko.v@gmail.com_avatar.png'. Physical path: '/home/vladislav/Рабочий стол/SocialNetwork/wwwroot/photos/kulizhenko.v@gmail.com_avatar.png'
+Request finished in 2.2234ms 200 image/png
+Request starting HTTP/1.1 GET http://localhost:7800/favicon.ico  
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Request finished in 6.3616ms 0 
+Request starting HTTP/1.1 GET http://localhost:7800/asasa  
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Request finished in 12.2226ms 404 
+Request starting HTTP/1.1 GET http://localhost:7800/  
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Route matched with {action = "Index", controller = "Home"}. Executing action SocialNetwork.Controllers.HomeController.Index (SocialNetwork)
+Executing action method SocialNetwork.Controllers.HomeController.Index (SocialNetwork) - Validation state: Valid
+Executed action method SocialNetwork.Controllers.HomeController.Index (SocialNetwork), returned result Microsoft.AspNetCore.Mvc.ViewResult in 8.6618ms.
+Executing ViewResult, running view Index.
+Executed ViewResult - view Index executed in 769.5644ms.
+Executed action SocialNetwork.Controllers.HomeController.Index (SocialNetwork) in 889.67ms
+Request finished in 4023.9305ms 200 text/html; charset=utf-8
+Request starting HTTP/1.1 GET http://localhost:7800/images/img-01.png  
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Request finished in 106.1062ms 404 
+Request starting HTTP/1.1 GET http://localhost:7800/adasda  
+Entity Framework Core 2.2.0-rtm-35687 initialized 'UsersContext' using provider 'MySql.Data.EntityFrameworkCore' with options: None
+Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'social_network'
+Request finished in 6.4615ms 404 

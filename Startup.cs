@@ -71,6 +71,11 @@ namespace SocialNetwork
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseStatusCodePagesWithReExecute("/Error", "?code={0}");
+                app.UseExceptionHandler("/Error");
+            }
 
             app.UseAuthentication();    // аутентификация
             app.UseMvc(routes =>
