@@ -7,7 +7,11 @@ namespace SocialNetwork.Services
 {
     public class EmailService
     {
-        public async Task SendEmailAsync(string email, string subject, string message, IConfiguration _config)
+        private readonly IConfiguration _config;
+        public EmailService(IConfiguration config){
+            _config = config;
+        }
+        public async Task SendEmailAsync(string email, string subject, string message)
         {
             var emailMessage = new MimeMessage();
             emailMessage.From.Add(new MailboxAddress("Site administration", _config["email"]));

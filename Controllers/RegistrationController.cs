@@ -23,11 +23,13 @@ namespace SocialNetwork.Controllers
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
         private readonly IConfiguration _config;
-        public RegistrationController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config)
+        private readonly EmailService _emailService;
+        public RegistrationController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config, EmailService emailService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _config = config;
+            _emailService = emailService;
         }
 
         [HttpGet]
@@ -116,9 +118,9 @@ namespace SocialNetwork.Controllers
                         "Registration",
                         new { userId = usr.Id, code = code },
                         protocol: HttpContext.Request.Scheme);
-                        EmailService emailService = new EmailService();
-                    await emailService.SendEmailAsync(model.Email, "Confirm your account",
-                        $"Confirm registration by clicking on the link: <a href='{callbackUrl}'>link</a>", _config);
+                       
+                    await _emailService.SendEmailAsync(model.Email, "Confirm your account",
+                        $"Confirm registration by clicking on the link: <a href='{callbackUrl}'>link</a>");
  
                     return Content("To complete the registration, check your email and follow the link provided in the letter");
                 }

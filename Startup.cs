@@ -17,6 +17,7 @@ using SocialNetwork.Logger;
 using System.IO;
 using SocialNetwork.Hubs;
 using Microsoft.AspNetCore.SignalR;
+using SocialNetwork.Services;
 
 namespace SocialNetwork
 {
@@ -51,7 +52,7 @@ namespace SocialNetwork
 			}).AddEntityFrameworkStores<UsersContext>()
             .AddDefaultTokenProviders();
             services.AddSignalR();
-
+            services.AddTransient<EmailService>();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options => //CookieAuthenticationOptions
             {
@@ -67,10 +68,11 @@ namespace SocialNetwork
             app.UseStaticFiles();
             loggerFactory.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logs.txt"));
 
-            if (env.IsDevelopment())
+            if (!env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            
             else
             {
                 app.UseStatusCodePagesWithReExecute("/Error", "?code={0}");
